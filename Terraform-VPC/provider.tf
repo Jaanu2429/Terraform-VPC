@@ -8,14 +8,13 @@ terraform {
 
   backend "s3" {
     bucket         = "terraform-remote-backend-s3-githubactions"
-    dynamodb_table = "terraform-lock-table"
     key            = "dev/terraform.tfstate"
-    region         = "us-east-1"
+    region         = "us-west-2"
     encrypt        = false
     
   }
 }
 
 provider "aws" {
-  region = "us-east-1"
+  region = "us-west-2"
 }
