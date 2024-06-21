@@ -19,13 +19,8 @@ variable "private_subnet_cidrs" {
   type        = list(string)
 }
 
-variable "public_subnet_names" {
-  description = "Public Subnet names"
-  type        = list(string)
-}
-
-variable "private_subnet_names" {
-  description = "Private Subnet names"
+variable "subnet_names" {
+  description = "Subnet names"
   type        = list(string)
 }
 
@@ -34,4 +29,3 @@ variable "use_nat_gateway" {
   type        = bool
   default     = true
 }
-
