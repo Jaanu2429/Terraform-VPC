@@ -66,7 +66,7 @@ resource "aws_route_table_association" "public_rta" {
 # NAT Gateway
 resource "aws_eip" "nat_eip" {
   count = var.use_nat_gateway ? 1 : 0
-  vpc   = true
+  domain = "vpc"
 }
 
 resource "aws_nat_gateway" "nat_gw" {
