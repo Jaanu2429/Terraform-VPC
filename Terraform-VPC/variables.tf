@@ -1,4 +1,4 @@
-variable "vpc_cidr" {
+git variable "vpc_cidr" {
   description = "VPC CIDR Range"
   type = string
 }
