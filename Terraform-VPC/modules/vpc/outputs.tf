@@ -6,8 +6,8 @@ output "public_subnet_ids" {
   value = aws_subnet.public_subnets[*].id
 }
 
-output "private_subnet_ids" {
-  value = aws_subnet.private_subnets.id
+output "private_subnet_id" {  # Updated to match the single private subnet
+  value = aws_subnet.private_subnet.id
 }
 
 output "internet_gateway_id" {
