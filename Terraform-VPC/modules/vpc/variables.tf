@@ -23,5 +23,5 @@ variable "subnet_names" {
 variable "use_nat_gateway" {
   description = "Use NAT Gateway for private subnets (true/false)"
   type = bool
-  default = true
+  default = false # Set to false as NAT Gateway is not wanted
 }
