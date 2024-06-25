@@ -62,16 +62,9 @@ resource "aws_route_table_association" "public_rta" {
   route_table_id = aws_route_table.public_rt.id
 }
 
-
-
 # Route Table for Private Subnet
 resource "aws_route_table" "private_rt" {
   vpc_id = aws_vpc.my_vpc.id
-
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.igw[0].id
-  }
 
   tags = {
     Name = "PrivateRouteTable"
@@ -80,7 +73,6 @@ resource "aws_route_table" "private_rt" {
 
 # Route Table Association for Private Subnet
 resource "aws_route_table_association" "private_rta" {
-  count = length(var.private_subnet_cidrs)
-  subnet_id = aws_subnet.private_subnet.id[count.index].id
-  route_table_id = aws_route_table.private_rt[0].id
+  subnet_id = aws_subnet.private_subnet.id
+  route_table_id = aws_route_table.private_rt.id
 }
