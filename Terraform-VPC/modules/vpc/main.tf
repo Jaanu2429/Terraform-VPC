@@ -21,15 +21,14 @@ resource "aws_subnet" "public_subnets" {
   }
 }
 
-# Private subnets
-resource "aws_subnet" "private_subnets" {
-  count = length(var.private_subnet_cidrs)
+# Private subnet (only one)
+resource "aws_subnet" "private_subnet" {
   vpc_id = aws_vpc.my_vpc.id
-  cidr_block = var.private_subnet_cidrs[count.index + 0]
-  availability_zone = data.aws_availability_zones.available.names[count.index]
+  cidr_block = var.private_subnet_cidrs[0]
+  availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
-    Name = var.subnet_names[count.index + length(var.public_subnet_cidrs)]
+    Name = var.subnet_names[length(var.public_subnet_cidrs)]
   }
 }
 
@@ -79,7 +78,7 @@ resource "aws_nat_gateway" "nat_gw" {
   }
 }
 
-# Route Table for Private Subnets
+# Route Table for Private Subnet
 resource "aws_route_table" "private_rt" {
   count = var.use_nat_gateway ? 1 : 0
   vpc_id = aws_vpc.my_vpc.id
@@ -94,9 +93,9 @@ resource "aws_route_table" "private_rt" {
   }
 }
 
-# Route Table Association for Private Subnets
+# Route Table Association for Private Subnet
 resource "aws_route_table_association" "private_rta" {
-  count = var.use_nat_gateway ? length(var.private_subnet_cidrs) : 0
-  subnet_id = aws_subnet.private_subnets[count.index].id
+  count = var.use_nat_gateway ? 1 : 0
+  subnet_id = aws_subnet.private_subnet.id
   route_table_id = aws_route_table.private_rt[0].id
 }
